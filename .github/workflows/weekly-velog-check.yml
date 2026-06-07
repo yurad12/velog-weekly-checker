@@ -1,0 +1,28 @@
+name: Weekly Velog Check
+
+on:
+  schedule:
+    - cron: '55 23 * * SUN'
+  workflow_dispatch:
+
+jobs:
+  run-checker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Blog Checker Application
+        env:
+          MATTERMOST_WEBHOOK_URL: ${{ secrets.MATTERMOST_WEBHOOK_URL }}
+        run: ./gradlew run
