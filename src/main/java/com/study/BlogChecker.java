@@ -52,6 +52,7 @@ public class BlogChecker {
 
             StringBuilder message = new StringBuilder();
             message.append("## 📝 Velog 주간 글 작성 체크 및 벌금 정산\n\n");
+            message.append("@all 블로그 정산 결과를 확인하세요! 📢\n\n");
             message.append("- **체크 기간:** `").append(start.format(FORMATTER)).append("` ~ `").append(end.format(FORMATTER)).append("`\n");
             message.append("- **목표 개수:** 주 ").append(REQUIRED_COUNT).append("개 작성\n");
             message.append("- **벌금 규정:** 미달 1개당 3,000원 (※ 3개 모두 미작성 시 10,000원)\n\n");
@@ -93,7 +94,8 @@ public class BlogChecker {
 
                 // 결과 메시지 조립
                 message.append(isCompleted ? "✅ " : "⚠️ ")
-                        .append("**").append(displayName).append("** (`").append(username).append("`) : ")
+                        .append("**").append(displayName).append("** ")
+                        .append("([`").append(username).append("`](https://velog.io/@").append(username).append(")) : ")
                         .append(count).append("/").append(REQUIRED_COUNT).append("개");
 
                 if (fine > 0) {
@@ -102,7 +104,7 @@ public class BlogChecker {
                 message.append("\n");
 
                 for (VelogPost post : weeklyPosts) {
-                    message.append("  - ").append(post.title()).append(" (").append(post.releasedAt().format(FORMATTER)).append(")\n");
+                    message.append("  - ").append(post.title()).append("\n");
                 }
                 if (weeklyPosts.isEmpty()) {
                     message.append("  - _기간 내 작성된 글 없음_\n");
