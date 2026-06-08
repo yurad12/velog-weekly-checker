@@ -2,7 +2,7 @@ name: Weekly Velog Check
 
 on:
   schedule:
-    - cron: '55 23 * * SUN'
+    - cron: '30 22 * * SUN'
   workflow_dispatch:
 
 jobs:
